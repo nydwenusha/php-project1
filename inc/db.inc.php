@@ -1,6 +1,6 @@
 <?php
 
-$server = 'localhost';
+$server = 'sql.freesqldatabase.com';
 $db_user = 'u454421092_w_products';
 $db_password = 'Theanzwerofficial@2025';
 $db_name = 'u454421092_w_products';
