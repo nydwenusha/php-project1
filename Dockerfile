@@ -16,7 +16,7 @@ WORKDIR /var/www/html/inventory
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Install dependencies (composer.json is in inventory/)
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-fileinfo
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/inventory/storage /var/www/html/inventory/bootstrap/cache
