@@ -16,6 +16,9 @@ RUN a2enmod rewrite
 # Copy all files to Apache web root
 COPY . /var/www/html/
 
+# Force fresh build
+RUN echo "Force rebuild on $(date)"
+
 # Set working directory to inventory folder (where Laravel is)
 WORKDIR /var/www/html/inventory
 
