@@ -18,6 +18,10 @@ RUN a2enmod rewrite
 # Copy all files to Apache web root
 COPY . /var/www/html/
 
+# Set permissions for storage and bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/inventory/storage /var/www/html/inventory/bootstrap/cache
+RUN chmod -R 777 /var/www/html/inventory/storage /var/www/html/inventory/bootstrap/cache
+
 # Create SQLite database directory and file
 RUN mkdir -p /var/www/html/inventory/database && touch /var/www/html/inventory/database/database.sqlite
 
