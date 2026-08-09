@@ -5,10 +5,12 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip \
     unzip \
+    sqlite3 \
+    libsqlite3-dev \
     && docker-php-ext-install zip
 
-# Install MySQLi extension
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+# Install MySQLi and PDO SQLite extensions
+RUN docker-php-ext-install mysqli pdo pdo_mysql pdo_sqlite
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
@@ -16,10 +18,10 @@ RUN a2enmod rewrite
 # Copy all files to Apache web root
 COPY . /var/www/html/
 
-# Force fresh build
-RUN echo "Force rebuild on $(date)"
+# Create SQLite database directory and file
+RUN mkdir -p /var/www/html/inventory/database && touch /var/www/html/inventory/database/database.sqlite
 
-# Set working directory to inventory folder (where Laravel is)
+# Set working directory to inventory (where Laravel is)
 WORKDIR /var/www/html/inventory
 
 # Install Composer
@@ -28,9 +30,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install dependencies (composer.json is in inventory/)
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-fileinfo
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html/inventory/storage /var/www/html/inventory/bootstrap/cache
-RUN chmod -R 775 /var/www/html/inventory/storage /var/www/html/inventory/bootstrap/cache
+# Set permissions for storage, bootstrap/cache, and database
+RUN chown -R www-data:www-data /var/www/html/inventory/storage /var/www/html/inventory/bootstrap/cache /var/www/html/inventory/database
+RUN chmod -R 775 /var/www/html/inventory/storage /var/www/html/inventory/bootstrap/cache /var/www/html/inventory/database
 
 # Set environment variables
 ENV APP_ENV=production
