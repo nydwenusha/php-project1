@@ -1,5 +1,20 @@
 <?php
 
+// Test route to check if Laravel is working
+Route::get('/test', function () {
+    return 'Laravel is working!';
+});
+
+// Test route to check database
+Route::get('/db-test', function () {
+    try {
+        $users = DB::table('users')->get();
+        return 'Database working! Found ' . count($users) . ' users.';
+    } catch (\Exception $e) {
+        return 'Database error: ' . $e->getMessage();
+    }
+});
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
 
