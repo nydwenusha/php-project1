@@ -22,7 +22,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-         // Fix for "table is full" error - use utf8 instead of utf8mb4
-        \DB::statement('SET SESSION sql_mode = ""');
+          
     }
 }
