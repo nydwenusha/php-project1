@@ -42,7 +42,7 @@ RUN sed -i 's!/var/www/html!/var/www/html/inventory/public!g' /etc/apache2/sites
 # Create startup script to run migrations
 RUN echo '#!/bin/bash\n\
 cd /var/www/html/inventory\n\
-php artisan migrate --force\n\
+php artisan migrate:fresh --force\n\
 apache2-foreground' > /usr/local/bin/startup.sh && \
 chmod +x /usr/local/bin/startup.sh
 
