@@ -34,6 +34,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install dependencies (composer.json is in inventory/)
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-fileinfo
 
+# Create storage symlink
+RUN php artisan storage:link
+
+
 # Set permissions for storage, bootstrap/cache, and database
 RUN chown -R www-data:www-data /var/www/html/inventory/storage /var/www/html/inventory/bootstrap/cache /var/www/html/inventory/database
 RUN chmod -R 775 /var/www/html/inventory/storage /var/www/html/inventory/bootstrap/cache /var/www/html/inventory/database
