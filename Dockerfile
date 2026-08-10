@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     sqlite3 \
     libsqlite3-dev \
+    libpq-dev \
     && docker-php-ext-install zip
 
 # Install MySQLi and PDO SQLite extensions
