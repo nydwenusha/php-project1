@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install zip
 
 # Install MySQLi and PDO SQLite extensions
-RUN docker-php-ext-install mysqli pdo pdo_mysql pdo_sqlite
+RUN docker-php-ext-install mysqli pdo pdo_mysql pdo_sqlite pdo_pgsql
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
